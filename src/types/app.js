@@ -1,0 +1,2 @@
+export const USER_LOGOUT = "USER_LOGOUT";
+export const APP_SET_USER_DETAILS = "APP_SET_USER_DETAILS";

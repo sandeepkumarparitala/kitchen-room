@@ -18,7 +18,7 @@ import {
   ButtonHolder,
   LoginForm
 } from "./styles";
-import { appSetToken } from "../../actions/app";
+import { appHandleLoginResponse } from "../../actions/app";
 
 class WebLogin extends Component {
   handleGoogleResponse = response => {

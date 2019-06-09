@@ -86,4 +86,7 @@ const mapDispatchToProps = {
   setUserDetails: appHandleLoginResponse
 };
 
-export default connect(mapDispatchToProps)(WebLogin);
+export default connect(
+  null,
+  mapDispatchToProps
+)(WebLogin);

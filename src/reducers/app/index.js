@@ -1,4 +1,4 @@
-import * as types from "../types/app";
+import * as types from "./types";
 
 export const initialState = {
   user: null,

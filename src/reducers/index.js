@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { reducer as appReducer, initialState as appInitialState } from "./app";
-import * as types from "../types/app";
+import * as types from "./app/types";
 
 export const initialState = {
   app: appInitialState

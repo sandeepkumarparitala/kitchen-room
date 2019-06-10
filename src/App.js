@@ -8,7 +8,7 @@ import {
   loginSetChecked,
   appSetUserToken,
   appSetInitializing
-} from "./actions/app/actionCreators";
+} from "./reducers/app/actions/actionCreators";
 import { connect } from "react-redux";
 // import AuthGateway from "./Components/Auth";
 

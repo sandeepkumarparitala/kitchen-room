@@ -18,11 +18,11 @@ import {
   ButtonHolder,
   LoginForm
 } from "./styles";
-import { appHandleLoginResponse } from "../../actions/app";
+import { appHandleLoginResponse } from "../../reducers/app/actions";
 import {
   loginSetChecked,
   appSetUserToken
-} from "../../actions/app/actionCreators";
+} from "../../reducers/app/actions/actionCreators";
 import {
   userSelectLoginChecked,
   userSelectIsLoggedIn

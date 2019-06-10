@@ -1,4 +1,4 @@
-import * as types from "../../types/app.js";
+import * as types from "../types";
 
 export const appSetUserDetails = user => ({
   type: types.APP_SET_USER_DETAILS,

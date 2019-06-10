@@ -29,8 +29,6 @@ export const LoginCard = styled.div`
   transition: all 0.3s ease-in-out;
 `;
 export const LogoContainer = styled.div`
-  height: 100px;
-  width: 100px;
   position: absolute;
   top: -15%;
 `;
@@ -66,6 +64,7 @@ export const GoogleButton = styled(FacebookButton)`
 `;
 
 export const LoginHeader = styled.p`
+  color: #585858;
   margin-bottom: 30px;
 `;
 

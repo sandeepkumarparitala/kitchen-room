@@ -19,22 +19,35 @@ import {
   LoginForm
 } from "./styles";
 import { appHandleLoginResponse } from "../../actions/app";
+import {
+  loginSetChecked,
+  appSetUserToken
+} from "../../actions/app/actionCreators";
+import {
+  userSelectLoginChecked,
+  userSelectIsLoggedIn
+} from "../../Selectors/app";
 
-class WebLogin extends Component {
-  handleGoogleResponse = response => {
-    const { appHandleLoginResponse } = this.props;
-    appHandleLoginResponse("google", response);
-    console.log(response);
+class Login extends Component {
+  handleGoogleResponse = async response => {
+    const { setUserDetails, loginSetChecked, history } = this.props;
+    await setUserDetails("google", response);
+    loginSetChecked(true);
+    history.push("/welcome");
   };
 
-  hangleFacebookResponse = response => {
-    const { appHandleLoginResponse } = this.props;
-    appHandleLoginResponse("fb", response);
-    console.log(response);
+  hangleFacebookResponse = async response => {
+    const { setUserDetails, loginSetChecked, history } = this.props;
+    await setUserDetails("facebook", response);
+    loginSetChecked(true);
+    history.push("/welcome");
   };
 
   render() {
-    return (
+    const { loginChecked, isLoggedIn, history } = this.props;
+    return isLoggedIn && loginChecked ? (
+      history.push("/app")
+    ) : (
       <LoginWrapper>
         <LoginCard>
           <LogoContainer>
@@ -81,12 +94,17 @@ class WebLogin extends Component {
     );
   }
 }
-
+const mapStateToProps = state => ({
+  isLoggedIn: userSelectIsLoggedIn(state),
+  loginChecked: userSelectLoginChecked(state)
+});
 const mapDispatchToProps = {
-  setUserDetails: appHandleLoginResponse
+  setUserDetails: appHandleLoginResponse,
+  loginSetChecked,
+  appSetUserToken
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
-)(WebLogin);
+)(Login);

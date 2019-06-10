@@ -6,6 +6,7 @@ import googleIcon from "../../assets/images/gsuite.svg";
 import facebookIcon from "../../assets/images/facebook.svg";
 import { ClientId } from "../config.js";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
 import {
   LoginWrapper,
   LoginCard,
@@ -33,20 +34,20 @@ class Login extends Component {
     const { setUserDetails, loginSetChecked, history } = this.props;
     await setUserDetails("google", response);
     loginSetChecked(true);
-    history.push("/welcome");
+    history.push("/app");
   };
 
   hangleFacebookResponse = async response => {
     const { setUserDetails, loginSetChecked, history } = this.props;
     await setUserDetails("facebook", response);
     loginSetChecked(true);
-    history.push("/welcome");
+    history.push("/app");
   };
 
   render() {
-    const { loginChecked, isLoggedIn, history } = this.props;
+    const { loginChecked, isLoggedIn } = this.props;
     return isLoggedIn && loginChecked ? (
-      history.push("/app")
+      <Redirect to="/app" />
     ) : (
       <LoginWrapper>
         <LoginCard>

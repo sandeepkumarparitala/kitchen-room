@@ -9,3 +9,6 @@ export const userSelectIsLoggedIn = createSelector(
   appSelectUserToken,
   token => Boolean(token)
 );
+
+export const appCheckIsInitializing = ({ app: { isIntializing } }) =>
+  isIntializing;

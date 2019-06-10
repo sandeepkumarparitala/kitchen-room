@@ -20,7 +20,7 @@ export const appHandleLoginResponse = (authClient, response) => async (
   dispatch(appSetUserToken(accessToken));
 };
 
-export const appCheckisLoggedIn = (dispatch, getState) => {
+export const appCheckisLoggedIn = () => (dispatch, getState) => {
   const token = Cookies.get("accessToken");
   if (token) {
     dispatch(appSetUserToken(token));

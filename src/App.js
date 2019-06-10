@@ -10,6 +10,8 @@ import {
   appSetInitializing
 } from "./reducers/app/actions/actionCreators";
 import { connect } from "react-redux";
+import { appCheckIsInitializing } from "./Selectors/app";
+import { appCheckisLoggedIn } from "./reducers/app/actions/index";
 // import AuthGateway from "./Components/Auth";
 
 class App extends Component {
@@ -19,7 +21,10 @@ class App extends Component {
     appCheckisLoggedIn();
   }
   render() {
-    return (
+    const { isInitializing } = this.props;
+    return isInitializing ? (
+      <div>loading...</div>
+    ) : (
       <BrowserRouter>
         <Redirector />
         <Switch>
@@ -32,11 +37,13 @@ class App extends Component {
   }
 }
 export const mapStateToProps = state => ({
-  appSetInitializing: appSetInitializing(state)
+  isInitializing: appCheckIsInitializing(state)
 });
 export const mapDispatchToProps = {
   loginSetChecked,
-  appSetUserToken
+  appSetUserToken,
+  appSetInitializing,
+  appCheckisLoggedIn
 };
 
 export default connect(

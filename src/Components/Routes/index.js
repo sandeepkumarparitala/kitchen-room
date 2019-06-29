@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import {
   userSelectLoginChecked,
@@ -10,17 +10,16 @@ export const Welcome = () => {
   return <div>Welcom</div>;
 };
 class ProtectedRoutes extends Component {
-  componentDidMount() {
-    const { loginChecked, loggedIn, history } = this.props;
-    // if (!loginChecked || !loggedIn) {
-    //   history.push("/");
-    // }
-  }
-
+  renderRedirectToLanding = () => {
+    return <Redirect to="/about" />;
+  };
   render() {
     return (
       <div>
         <h1>hey</h1>
+        <Link to="/about">about</Link>
+        <Link to="/recipies">recipies</Link>
+        <Link to="/Kitchen-designs">Kitchen-designs</Link>
         <Switch>
           {availableRoutes.map(route => (
             <Route path={route.path} component={route.component} />

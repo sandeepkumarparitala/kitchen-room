@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { Redirector } from "react-router-redirect";
 import "./App.css";
 import Login from "./Components/Login";
@@ -12,7 +12,7 @@ import {
 import { connect } from "react-redux";
 import { appCheckIsInitializing } from "./Selectors/app";
 import { appCheckisLoggedIn } from "./reducers/app/actions/index";
-// import AuthGateway from "./Components/Auth";
+import AuthGateway from "./Components/Auth";
 
 class App extends Component {
   componentDidMount() {
@@ -26,12 +26,8 @@ class App extends Component {
       <div>loading...</div>
     ) : (
       <BrowserRouter>
-        <Redirector />
-        <Switch>
-          <Route path="/" exact component={Login} />
-          <Route path="/app" exact component={Routes} />
-          <Route render={() => <Redirect to="/" />} />
-        </Switch>
+        <Route path="/login" component={Login} />
+        <AuthGateway path="/" component={Routes} />
       </BrowserRouter>
     );
   }

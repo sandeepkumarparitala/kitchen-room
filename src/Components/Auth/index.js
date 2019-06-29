@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import {
   appSetUserToken,
   loginSetChecked
-} from "../../actions/app/actionCreators";
+} from "../../reducers/app/actions/actionCreators";
 import { connect } from "react-redux";
 import Cookies from "js-cookie";
 import {
@@ -26,12 +26,20 @@ class AuthGateway extends Component {
   };
 
   render() {
-    const { loggedIn, loginChecked } = this.props;
-    if (!loginChecked) return null;
-    if (loginChecked && loggedIn) {
-      return <Redirect to="/welcome" />;
-    }
-    return <Redirect to="/login" />;
+    const {
+      loggedIn,
+      loginChecked,
+      component: Component,
+      ...rest
+    } = this.props;
+    return (
+      <Route
+        {...rest}
+        render={props =>
+          loggedIn ? <Component {...props} /> : <Redirect to="/login" />
+        }
+      />
+    );
   }
 }
 

@@ -12,19 +12,22 @@ export const Welcome = () => {
 class ProtectedRoutes extends Component {
   componentDidMount() {
     const { loginChecked, loggedIn, history } = this.props;
-    if (!loginChecked || !loggedIn) {
-      history.push("/");
-    }
+    // if (!loginChecked || !loggedIn) {
+    //   history.push("/");
+    // }
   }
 
   render() {
     return (
-      <Switch>
-        {availableRoutes.map(route => (
-          <Route path={route.path} component={route.component} />
-        ))}
-        <Route render={this.renderRedirectToLanding} />
-      </Switch>
+      <div>
+        <h1>hey</h1>
+        <Switch>
+          {availableRoutes.map(route => (
+            <Route path={route.path} component={route.component} />
+          ))}
+          <Route render={this.renderRedirectToLanding} />
+        </Switch>
+      </div>
     );
   }
 }

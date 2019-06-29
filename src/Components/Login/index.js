@@ -34,20 +34,20 @@ class Login extends Component {
     const { setUserDetails, loginSetChecked, history } = this.props;
     await setUserDetails("google", response);
     loginSetChecked(true);
-    history.push("/app");
+    history.push("/");
   };
 
   hangleFacebookResponse = async response => {
     const { setUserDetails, loginSetChecked, history } = this.props;
     await setUserDetails("facebook", response);
     loginSetChecked(true);
-    history.push("/app");
+    history.push("/");
   };
 
   render() {
     const { loginChecked, isLoggedIn } = this.props;
-    return isLoggedIn && loginChecked ? (
-      <Redirect to="/app" />
+    return isLoggedIn && false ? (
+      <Redirect to="/" />
     ) : (
       <LoginWrapper>
         <LoginCard>

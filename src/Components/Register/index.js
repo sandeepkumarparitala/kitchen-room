@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import "./index.css";
 import { Redirect, Link } from "react-router-dom";
 import { LoginWrapper } from "../Login/styles";
+import { requestRegister } from "../../reducers/app/actions";
 
 class Registerform extends Component {
   state = {
@@ -24,7 +26,8 @@ class Registerform extends Component {
     this.setState(change);
   };
 
-  handleSubmit = () => {
+  handleSubmit = e => {
+    e.preventDefault();
     const {
       email,
       firstName,
@@ -35,7 +38,9 @@ class Registerform extends Component {
       countryCode,
       collage
     } = this.state;
+    const { requestRegister } = this.props;
     this.setState({ submitted: true });
+    requestRegister();
   };
 
   render() {
@@ -163,4 +168,13 @@ class Registerform extends Component {
   }
 }
 
-export default Registerform;
+const mapStatetoProps = state => {};
+
+const mapDispatchToProps = {
+  requestRegister
+};
+
+export default connect(
+  mapStatetoProps,
+  mapDispatchToProps
+)(Registerform);

@@ -7,7 +7,8 @@ import {
   appSetLoginFailed
 } from "./actionCreators";
 import axios from "axios";
-import { loginBaseUrl } from "./constants";
+import { loginBaseUrl, registerBaseUrl } from "./constants";
+import { history } from "../../helper";
 
 export const appSetTokenCookie = accessToken =>
   Cookies.set("accessToken", accessToken);
@@ -48,4 +49,10 @@ export const requestLogin = (email, password) => async (dispatch, getState) => {
 export const handleJwt = token => (dispatch, getState) => {
   Cookies.set("jwt", token);
   dispatch(appSetUserToken(token));
+};
+
+export const requestRegister = data => async (dispatch, getState) => {
+  history.push("/login");
+  const response = await axios.post(registerBaseUrl(), data);
+  // if (!response) return;
 };

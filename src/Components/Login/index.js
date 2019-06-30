@@ -1,25 +1,12 @@
 import React, { Component } from "react";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
-import { GoogleLogin } from "react-google-login";
-import KitchenImg from "../../assets/images/kitchen.jpg";
-import googleIcon from "../../assets/images/gsuite.svg";
-import facebookIcon from "../../assets/images/facebook.svg";
-import { ClientId } from "../config.js";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
+import "./index.css";
+import { LoginWrapper } from "./styles";
 import {
-  LoginWrapper,
-  LoginCard,
-  FacebookButton,
-  GoogleButton,
-  LogoContainer,
-  BackgroundImg,
-  LoginHeader,
-  AuthIcon,
-  ButtonHolder,
-  LoginForm
-} from "./styles";
-import { appHandleLoginResponse } from "../../reducers/app/actions";
+  appHandleLoginResponse,
+  requestLogin
+} from "../../reducers/app/actions";
 import {
   loginSetChecked,
   appSetUserToken
@@ -28,69 +15,100 @@ import {
   userSelectLoginChecked,
   userSelectIsLoggedIn
 } from "../../Selectors/app";
+import UserIcon from "../../assets/images/man.svg";
 
 class Login extends Component {
-  handleGoogleResponse = async response => {
-    const { setUserDetails, loginSetChecked, history } = this.props;
-    await setUserDetails("google", response);
-    loginSetChecked(true);
-    history.push("/");
+  state = {
+    username: "",
+    password: "",
+    submit: false,
+    validPassword: true,
+    validUsername: true
   };
 
-  hangleFacebookResponse = async response => {
-    const { setUserDetails, loginSetChecked, history } = this.props;
-    await setUserDetails("facebook", response);
-    loginSetChecked(true);
-    history.push("/");
+  handleUsernameChange = e => {
+    e.preventDefault();
+    const username = e.target.value.trim();
+    this.setState({ username });
+  };
+
+  handlePasswordChange = e => {
+    e.preventDefault();
+    const password = e.target.value.trim();
+    this.setState({ password });
+  };
+
+  onClickSubmit = () => {
+    const { username, password } = this.state;
+    const { requestLogin } = this.props;
+    this.setState({ submitted: true });
+    if (username && password) requestLogin(username, password);
   };
 
   render() {
-    const { loginChecked, isLoggedIn } = this.props;
+    const { isLoggedIn } = this.props;
+    const { submitted, username, password } = this.state;
     return isLoggedIn && false ? (
       <Redirect to="/" />
     ) : (
       <LoginWrapper>
-        <LoginCard>
-          <LogoContainer>
-            <BackgroundImg src={KitchenImg} />
-          </LogoContainer>
-          <LoginForm>
-            <LoginHeader>Enter Kitchen room using</LoginHeader>
-            <FacebookLogin
-              appId={ClientId.facebook}
-              LoginForm
-              fields="name,email,picture"
-              render={renderProps => (
-                <ButtonHolder
-                  renderProps={renderProps}
-                  onClick={renderProps.onClick}
+        <div className="wrapper">
+          <div className="modal-content animate">
+            <div className="imgcontainer">
+              <img src={UserIcon} alt="Avatar" className="avatar" />
+            </div>
+            <div className="login-container">
+              <label>
+                <b>Username</b>
+              </label>
+              <input
+                type="text"
+                placeholder="Enter Username"
+                name="uname"
+                value={username}
+                onChange={this.handleUsernameChange}
+                required
+              />
+              {submitted && !username && (
+                <div
+                  classNameName="help-block"
+                  style={{ marginBottom: "20px", color: "red" }}
                 >
-                  <AuthIcon src={facebookIcon} />
-                  <FacebookButton>Facebook</FacebookButton>
-                </ButtonHolder>
+                  Username is required
+                </div>
               )}
-              callback={this.hangleFacebookResponse}
-            />
-            <GoogleLogin
-              clientId={ClientId.google}
-              render={renderProps => (
-                <ButtonHolder google={"google"} onClick={renderProps.onClick}>
-                  <AuthIcon src={googleIcon} />
-                  <GoogleButton
-                    google={"google"}
-                    disabled={renderProps.disabled}
-                  >
-                    Google
-                  </GoogleButton>
-                </ButtonHolder>
+              <label>
+                <b>Password</b>
+              </label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                value={password}
+                name="psw"
+                onChange={this.handlePasswordChange}
+                required
+              />
+              {submitted && !password && (
+                <div classNameName="help-block" style={{ color: "red" }}>
+                  Username is required
+                </div>
               )}
-              buttonText="Login"
-              onSuccess={this.handleGoogleResponse}
-              onFailure={this.handleGoogleResponse}
-              cookiePolicy={"single_host_origin"}
-            />
-          </LoginForm>
-        </LoginCard>
+              <button onClick={this.onClickSubmit}>Login</button>
+            </div>
+
+            <div
+              style={{
+                backgroundColor: "#f1f1f1",
+                height: "50px",
+                padding: "10px"
+              }}
+            >
+              <span className="psw">
+                new user <Link to="/register">Register</Link>
+              </span>
+            </div>
+          </div>
+        </div>
       </LoginWrapper>
     );
   }
@@ -102,7 +120,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   setUserDetails: appHandleLoginResponse,
   loginSetChecked,
-  appSetUserToken
+  appSetUserToken,
+  requestLogin
 };
 
 export default connect(

@@ -19,3 +19,7 @@ export const appSetInitializing = isInitializing => ({
   type: types.APP_SET_INITIALIZING,
   isInitializing
 });
+
+export const appSetLoginFailed = () => ({
+  type: types.APP_SET_LOGIN_FAILED
+});

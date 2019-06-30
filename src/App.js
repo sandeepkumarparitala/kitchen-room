@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import { Redirector } from "react-router-redirect";
 import "./App.css";
 import Login from "./Components/Login";
 import Routes from "./Components/Routes";
+import RegisterForm from "./Components/Register";
 import {
   loginSetChecked,
   appSetUserToken,
@@ -26,15 +26,20 @@ class App extends Component {
       <div>loading...</div>
     ) : (
       <BrowserRouter>
-        <Route path="/login" component={Login} />
-        <AuthGateway path="/" component={Routes} />
+        <Switch>
+          <Route path="/register" component={RegisterForm} />
+          <Route path="/login" component={Login} />
+          <AuthGateway path="/" component={Routes} />
+        </Switch>
       </BrowserRouter>
     );
   }
 }
+
 export const mapStateToProps = state => ({
   isInitializing: appCheckIsInitializing(state)
 });
+
 export const mapDispatchToProps = {
   loginSetChecked,
   appSetUserToken,

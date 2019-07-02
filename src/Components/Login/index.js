@@ -48,7 +48,7 @@ class Login extends Component {
   render() {
     const { isLoggedIn } = this.props;
     const { submitted, username, password } = this.state;
-    return isLoggedIn && false ? (
+    return isLoggedIn ? (
       <Redirect to="/" />
     ) : (
       <LoginWrapper>
@@ -117,6 +117,7 @@ const mapStateToProps = state => ({
   isLoggedIn: userSelectIsLoggedIn(state),
   loginChecked: userSelectLoginChecked(state)
 });
+
 const mapDispatchToProps = {
   setUserDetails: appHandleLoginResponse,
   loginSetChecked,

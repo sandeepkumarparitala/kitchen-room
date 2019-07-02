@@ -25,7 +25,8 @@ export const appHandleLoginResponse = (authClient, response) => async (
 };
 
 export const appCheckisLoggedIn = () => (dispatch, getState) => {
-  const token = Cookies.get("accessToken");
+  const token = Cookies.get("jwt");
+  console.log('hey this is cookie', token)
   if (token) {
     dispatch(appSetUserToken(token));
   }

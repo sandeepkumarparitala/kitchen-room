@@ -25,6 +25,10 @@ export const reducer = (state = initialState, action) => {
       const { isInitializing } = action;
       return { ...state, isInitializing };
     }
+    case types.APP_SET_LOGIN_SUCCESSFUL: {
+      const { status } = action;
+      return { ...state };
+    }
     default:
       return state;
   }

@@ -20,6 +20,7 @@ export const appSetInitializing = isInitializing => ({
   isInitializing
 });
 
-export const appSetLoginFailed = () => ({
-  type: types.APP_SET_LOGIN_FAILED
+export const appSetLoginSuccessful = status => ({
+  type: types.APP_SET_LOGIN_SUCCESSFUL,
+  status
 });

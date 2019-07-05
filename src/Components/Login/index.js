@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import { Redirect, Link } from "react-router-dom";
 import "./index.css";
 import { LoginWrapper } from "./styles";
-import {
-  appHandleLoginResponse,
-  requestLogin
-} from "../../reducers/app/actions";
+import { requestLogin } from "../../reducers/app/actions";
 import {
   loginSetChecked,
   appSetUserToken
@@ -70,12 +67,12 @@ class Login extends Component {
                 required
               />
               {submitted && !username && (
-                <div
-                  classNameName="help-block"
-                  style={{ marginBottom: "20px", color: "red" }}
+                <p
+                  className="help-block"
+                  // style={{ marginBottom: "20px", color: "red" }}
                 >
                   Username is required
-                </div>
+                </p>
               )}
               <label>
                 <b>Password</b>
@@ -89,9 +86,7 @@ class Login extends Component {
                 required
               />
               {submitted && !password && (
-                <div classNameName="help-block" style={{ color: "red" }}>
-                  Username is required
-                </div>
+                <p className="help-block">Username is required</p>
               )}
               <button onClick={this.onClickSubmit}>Login</button>
             </div>
@@ -119,7 +114,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  setUserDetails: appHandleLoginResponse,
   loginSetChecked,
   appSetUserToken,
   requestLogin

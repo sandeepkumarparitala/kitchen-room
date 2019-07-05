@@ -120,3 +120,7 @@ input[type=text], input[type=password] {
     min-width:700px;
     margin:auto;
   }
+
+  .help-block{
+    color:red
+  }

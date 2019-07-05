@@ -14,7 +14,7 @@ class Registerform extends Component {
     confirmPassword: "",
     phoneNumber: "",
     countryCode: "+91",
-    collage: "",
+    college_name: "",
     submitted: false
   };
 
@@ -36,11 +36,24 @@ class Registerform extends Component {
       confirmPassword,
       phoneNumber,
       countryCode,
-      collage
+      college_name
     } = this.state;
     const { requestRegister } = this.props;
     this.setState({ submitted: true });
-    requestRegister();
+    if (password !== confirmPassword) {
+      this.setState({ passwordMatch: false });
+      return;
+    }
+    requestRegister({
+      email,
+      firstName,
+      lastName,
+      password,
+      confirmPassword,
+      phoneNumber,
+      countryCode,
+      college_name
+    });
   };
 
   render() {
@@ -52,12 +65,12 @@ class Registerform extends Component {
       confirmPassword,
       phoneNumber,
       countryCode,
-      collage
+      college_name
     } = this.state;
     return (
       <LoginWrapper>
         <div className="wrapper animate">
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleSubmit} style={{ overflow: "auto" }}>
             <div className="container">
               <p>
                 <b>Register</b>
@@ -91,6 +104,7 @@ class Registerform extends Component {
                   <label>Number</label>
                   <div className="number-inputs">
                     <input
+                      type="number"
                       style={{ width: "15%", marginRight: "10px" }}
                       name="countryCode"
                       placeholder="+91"
@@ -100,6 +114,7 @@ class Registerform extends Component {
                       required
                     />
                     <input
+                      type="number"
                       name="phoneNumber"
                       placeholder="Enter phone number"
                       required
@@ -113,8 +128,8 @@ class Registerform extends Component {
               <label>collage</label>
               <input
                 placeholder="Enter collage name"
-                name="collage"
-                value={collage}
+                name="college_name"
+                value={college_name}
                 onChange={this.handleInputChanges}
                 required
               />

@@ -9,12 +9,14 @@ export const LoginWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  overflow:auto
   position: fixed;
   object-fit: cover;
   background-image: linear-gradient(to right, #12131c, #203a43, #2c5364);
   background-repeat: no-repeat;
   background-size: cover;
 `;
+
 export const LoginCard = styled.div`
   position: relative;
   display: flex;

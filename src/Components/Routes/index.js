@@ -5,19 +5,19 @@ import {
   userSelectLoginChecked,
   userSelectIsLoggedIn
 } from "../../Selectors/app";
-import { availableRoutes } from "./constants";
+import { availableRoutes } from "./availableRoutes";
 export const Welcome = () => {
   return <div>Welcom</div>;
 };
 class ProtectedRoutes extends Component {
   renderRedirectToLanding = () => {
-    return <Redirect to="/about" />;
+    return <Redirect to="/dashboard" />;
   };
   render() {
     return (
       <div>
         <h1>hey</h1>
-        <Link to="/about">about</Link>
+        <Link to="/dashboard">dashboard</Link>
         <Link to="/recipies">recipies</Link>
         <Link to="/Kitchen-designs">Kitchen-designs</Link>
         <Switch>

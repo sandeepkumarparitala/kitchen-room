@@ -2,7 +2,7 @@ import React from "react";
 
 export const availableRoutes = [
   {
-    path: "/about",
+    path: "/dashboard",
     component: () => <div>About</div>
   },
   {

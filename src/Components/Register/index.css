@@ -18,11 +18,14 @@
     width: 100%;
     margin: 5px 0 10px 0;
     display: inline-block;
+    padding: 10px;
     border: none;
     background: #e2dede;
-    border-radius:3px;
-    padding:10px;
+    border-radius: 3px;
+    padding: 10px;
+    height: 40px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
   }
   
   input:focus {
@@ -140,4 +143,15 @@ body::-webkit-scrollbar-thumb
 @keyframes animatezoom {
   from {transform: scale(0)} 
   to {transform: scale(1)}
+}
+
+/* For Firefox */
+input[type='number'] {
+  -moz-appearance:textfield;
+}
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

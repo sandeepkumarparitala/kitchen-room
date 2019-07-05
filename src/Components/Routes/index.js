@@ -15,14 +15,17 @@ class ProtectedRoutes extends Component {
   };
   render() {
     return (
-      <div>
-        <h1>hey</h1>
-        <Link to="/dashboard">dashboard</Link>
+      <div style={{ height: "100vh", width: "100%" }}>
+        {/* <Link to="/dashboard">dashboard</Link>
         <Link to="/recipies">recipies</Link>
-        <Link to="/Kitchen-designs">Kitchen-designs</Link>
+        <Link to="/Kitchen-designs">Kitchen-designs</Link> */}
         <Switch>
           {availableRoutes.map(route => (
-            <Route path={route.path} component={route.component} />
+            <Route
+              key={route.path}
+              path={route.path}
+              component={route.component}
+            />
           ))}
           <Route render={this.renderRedirectToLanding} />
         </Switch>

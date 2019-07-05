@@ -1,13 +1,19 @@
 import { combineReducers } from "redux";
 import { reducer as appReducer, initialState as appInitialState } from "./app";
+import {
+  reducer as dashBoardReducer,
+  initialState as dashBoardInitialState
+} from "./Dashboard";
 import * as types from "./app/types";
 
 export const initialState = {
-  app: appInitialState
+  app: appInitialState,
+  dashboard: dashBoardInitialState
 };
 
 export const reducers = combineReducers({
-  app: appReducer
+  app: appReducer,
+  dashboard: dashBoardReducer
 });
 
 /**

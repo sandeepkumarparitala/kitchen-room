@@ -1,9 +1,10 @@
 import React from "react";
+import Dashboard from "../Dashboard";
 
 export const availableRoutes = [
   {
     path: "/dashboard",
-    component: () => <div>About</div>
+    component: () => <Dashboard />
   },
   {
     path: "/recipies",

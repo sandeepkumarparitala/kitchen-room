@@ -7,8 +7,8 @@ import {
   appSetLoginSuccessful
 } from "./actionCreators";
 import axios from "axios";
-import { loginBaseUrl, registerBaseUrl } from "./constants";
-import { history } from "../../helper";
+import { loginBaseUrl, registerBaseUrl } from "../../constants";
+import { history, setDefaultToken } from "../../helper";
 
 // export const appSetTokenCookie = accessToken =>
 //   Cookies.set("accessToken", accessToken);
@@ -36,24 +36,21 @@ export const appCheckisLoggedIn = () => (dispatch, getState) => {
 };
 
 export const requestLogin = (email, password) => async (dispatch, getState) => {
-  let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve({ accessToken: "token" }), 1000);
+  const { data: response } = await axios.post(loginBaseUrl(), {
+    email,
+    password
   });
-  const response = await promise;
-  // const response = await axios.post(loginBaseUrl(), {
-  //   email,
-  //   password
-  // });
-  if (!response.accessToken) {
+  if (!response.access_Token) {
     dispatch(appSetLoginSuccessful(false));
   }
-  dispatch(handleJwt(response.accessToken));
+  dispatch(handleJwt(response.access_token));
   dispatch(appSetLoginSuccessful(true));
 };
 
 export const handleJwt = token => (dispatch, getState) => {
   Cookies.set("accessToken", token);
   dispatch(appSetUserToken(token));
+  setDefaultToken(token);
 };
 
 export const requestRegister = data => async (dispatch, getState) => {
@@ -75,8 +72,9 @@ export const requestRegister = data => async (dispatch, getState) => {
     mobile_number,
     college_name
   };
-  console.log("register data ==>", userData);
-  const response = await axios.post(registerBaseUrl(), userData);
-  history.push("/login");
-  // if (!response) return;
+  const { data: response } = await axios.post(registerBaseUrl(), userData);
+  // if (!response){
+  //   dispatch(registerFailed)
+  // }
+  // dispatch(requestSuccessful())
 };

@@ -6,18 +6,30 @@ import {
   Title,
   Options,
   Tile,
-  Header
+  Header,
+  DetailsBoard,
+  DetailsItem,
+  Card,
+  Count,
+  Text
 } from "./styles";
 import UserContainer from "./Userdetails";
 import { connect } from "react-redux";
-import { requestCall } from "../../reducers/Dashboard/actions";
+import { requestCall, fetchDetails } from "../../reducers/Dashboard/actions";
 import { ConfirmationDailog } from "./confirmation";
+import { ListItemSecondaryAction } from "@material-ui/core";
 
 class Dashboard extends Component {
   state = {
     activeTab: "",
-    openDailog: false
+    openDailog: false,
+    detailsLoaded:false
   };
+
+  componentDidMount(){
+    const { fetchDetails } = this.props;
+    fetchDetails()
+  }
 
   handleTabClick = e => {
     const tab = e.target.title;
@@ -60,6 +72,40 @@ class Dashboard extends Component {
     requestCall();
   };
 
+  renderDetails = () => {
+    // const { details } = this.props;
+    const details = [
+      {
+        label:'recomended',
+        text:'recomended jobs',
+        count: 10,
+      },
+      {
+        label:'attendad',
+        text:'interviews attended',
+        count:2
+      },
+      {
+        label:'shortlisted',
+        text:'companies shortlisted',
+        count:5
+      },
+      {
+        label:'placed',
+        text:'companies offred',
+        count:0
+      }
+    ]
+    return details.map((item)=>(
+      <DetailsItem>
+        <Card>
+        <Count>{item.count}</Count>
+        <Text>{item.text}</Text>
+        </Card>
+      </DetailsItem>
+    ))
+  }
+
   render() {
     const { activeTab, openDailog } = this.state;
     return (
@@ -77,6 +123,9 @@ class Dashboard extends Component {
           <Header>
             <UserContainer />
           </Header>
+          <DetailsBoard>
+            {this.renderDetails()}
+          </DetailsBoard>
         </Main>
       </Container>
     );
@@ -86,7 +135,8 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({});
 
 const mapDispatchtoProps = {
-  requestCall
+  requestCall,
+  fetchDetails
 };
 
 export default connect(

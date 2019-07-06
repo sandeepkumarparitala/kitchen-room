@@ -18,6 +18,8 @@ export const SideMenu = styled.div`
 export const Main = styled.div`
   height: 100%;
   width: 80%;
+  display:flex;
+  flex-direction:column;
 `;
 
 export const Title = styled.div`
@@ -38,9 +40,48 @@ export const Tile = styled.li`
   color: white;
   cursor: pointer;
   list-style: none;
+  transition: color 0.1s ease;
   color: ${({ active }) => (active ? "#dc9726" : "#ffff")};
 `;
 
 export const Header = styled.div`
   width: 100%;
 `;
+
+export const DetailsBoard = styled.div`
+width:100%;
+display:grid;
+grid-template-columns: auto auto;
+padding:10px;
+margin-top:10%;
+`
+export const DetailsItem = styled.div`
+width:100%;
+height:100%;
+padding:10px;
+`
+
+export const Card = styled.div`
+margin:auto;
+text-align:center;
+padding:10px;
+border-radius:5px;
+cursor:pointer;
+box-shadow: 0 0 8px 0 rgba(17, 22, 26, 0.16), 0 4px 8px 0 rgba(17, 22, 26, 0.08), 0 8px 16px 0 rgba(17, 22, 26, 0.08);
+transition: all 0.3s ease;
+&:hover{
+  box-shadow:5px 5px 25px 0px rgba(46, 61, 73, 0.2);
+}
+`
+export const Count = styled.p`
+color:#dc9726;
+font-weight:600;
+font-size:20px;
+`
+export const Text = styled.p`
+font-size: 1.125rem;
+font-weight: 600;
+line-height: 1.4em;
+text-transform:capitalize;
+color:#2e3d49;
+`

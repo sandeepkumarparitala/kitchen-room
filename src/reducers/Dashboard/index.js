@@ -1,13 +1,20 @@
 import * as types from "./types";
 
-export const initialState = {};
+export const initialState = {
+  dashboardInitializing:false,
+  details:null
+};
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    // case types.APP_SET_USER_DETAILS: {
-    //   const { user } = action;
-    //   return { ...state, user };
-    // }
+    case types.DASHBOARD_INITIALIZING : {
+      const { status } = action
+      return {...state,dashboardInitializing:status}
+    }
+    case types.DASHBOARD_SET_DETAILS : {
+      const { data } = action
+      return {...state,details:{...data}}
+    }
     default:
       return state;
   }

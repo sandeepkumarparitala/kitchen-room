@@ -30,20 +30,22 @@ export const appCheckisLoggedIn = () => (dispatch, getState) => {
   const token = Cookies.get("accessToken");
   if (token) {
     dispatch(appSetUserToken(token));
+    setDefaultToken(token)
   }
   dispatch(loginSetChecked(true));
   dispatch(appSetInitializing(false));
 };
 
 export const requestLogin = (email, password) => async (dispatch, getState) => {
-  const { data: response } = await axios.post(loginBaseUrl(), {
+  const {data:{access_token}} = await axios.post(loginBaseUrl(), {
     email,
     password
   });
-  if (!response.access_Token) {
+  if (!access_token) {
     dispatch(appSetLoginSuccessful(false));
+    return
   }
-  dispatch(handleJwt(response.access_token));
+  dispatch(handleJwt(access_token));
   dispatch(appSetLoginSuccessful(true));
 };
 

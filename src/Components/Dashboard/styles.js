@@ -40,3 +40,7 @@ export const Tile = styled.li`
   list-style: none;
   color: ${({ active }) => (active ? "#dc9726" : "#ffff")};
 `;
+
+export const Header = styled.div`
+  width: 100%;
+`;

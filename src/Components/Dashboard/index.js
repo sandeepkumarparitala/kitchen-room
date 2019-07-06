@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import { Container, SideMenu, Main, Title, Options, Tile } from "./styles";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Slide from "@material-ui/core/Slide";
+import {
+  Container,
+  SideMenu,
+  Main,
+  Title,
+  Options,
+  Tile,
+  Header
+} from "./styles";
+import UserContainer from "./Userdetails";
 import { connect } from "react-redux";
 import { requestCall } from "../../reducers/Dashboard/actions";
+import { ConfirmationDailog } from "./confirmation";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
 class Dashboard extends Component {
   state = {
     activeTab: "",
@@ -67,34 +67,17 @@ class Dashboard extends Component {
         <SideMenu>
           <Title>hirex.in</Title>
           <Options>{this.renderOptions()}</Options>
-          <Dialog
-            open={openDailog}
-            TransitionComponent={Transition}
-            keepMounted
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-          >
-            <DialogTitle id="alert-dialog-slide-title">
-              {"please confirm to receive a call"}
-            </DialogTitle>
-            <DialogContent>
-              {/* <DialogContentText id="alert-dialog-slide-description">
-                Let Google help apps determine location. This means sending
-                anonymous location data to Google, even when no apps are
-                running.
-              </DialogContentText> */}
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={this.handleClose} color="primary">
-                Disagree
-              </Button>
-              <Button onClick={this.handleConfirm} color="primary">
-                Agree
-              </Button>
-            </DialogActions>
-          </Dialog>
+          <ConfirmationDailog
+            openDailog={openDailog}
+            handleClose={this.handleClose}
+            handleConfirm={this.handleConfirm}
+          />
         </SideMenu>
-        <Main />
+        <Main>
+          <Header>
+            <UserContainer />
+          </Header>
+        </Main>
       </Container>
     );
   }

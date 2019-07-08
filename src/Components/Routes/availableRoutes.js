@@ -3,15 +3,7 @@ import Dashboard from "../Dashboard";
 
 export const availableRoutes = [
   {
-    path: "/dashboard",
+    path: "/jobs",
     component: () => <Dashboard />
-  },
-  {
-    path: "/recipies",
-    component: () => <div>Receipes</div>
-  },
-  {
-    path: "/Kitchen-designs",
-    component: () => <div>Designs</div>
   }
 ];

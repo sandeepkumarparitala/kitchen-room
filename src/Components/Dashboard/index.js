@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Switch, Route } from 'react-router-dom'
 import {
   Container,
   SideMenu,
@@ -16,8 +17,12 @@ import {
 import UserContainer from "./Userdetails";
 import { connect } from "react-redux";
 import { requestCall, fetchDetails } from "../../reducers/Dashboard/actions";
+import { appLogout } from "../../reducers/app/actions"
 import { ConfirmationDailog } from "./confirmation";
 import { ListItemSecondaryAction } from "@material-ui/core";
+import { RenderDetails } from './dashboardDetails'
+
+const sampleDiv = ()=><div>Hello</div>
 
 class Dashboard extends Component {
   state = {
@@ -46,8 +51,8 @@ class Dashboard extends Component {
         clickHandler: this.handleTabClick
       },
       {
-        title: "applicationStatus",
-        text: "Application status",
+        title: "showRecordings",
+        text: "show recordings",
         clickHandler: this.handleTabClick
       }
     ];
@@ -70,44 +75,12 @@ class Dashboard extends Component {
   handleConfirm = () => {
     const { requestCall } = this.props;
     requestCall();
+    this.setState({ openDailog: false });
   };
-
-  renderDetails = () => {
-    // const { details } = this.props;
-    const details = [
-      {
-        label:'recomended',
-        text:'recomended jobs',
-        count: 10,
-      },
-      {
-        label:'attendad',
-        text:'interviews attended',
-        count:2
-      },
-      {
-        label:'shortlisted',
-        text:'companies shortlisted',
-        count:5
-      },
-      {
-        label:'placed',
-        text:'companies offred',
-        count:0
-      }
-    ]
-    return details.map((item)=>(
-      <DetailsItem>
-        <Card>
-        <Count>{item.count}</Count>
-        <Text>{item.text}</Text>
-        </Card>
-      </DetailsItem>
-    ))
-  }
 
   render() {
     const { activeTab, openDailog } = this.state;
+    const { appLogout } = this.props
     return (
       <Container>
         <SideMenu>
@@ -121,10 +94,17 @@ class Dashboard extends Component {
         </SideMenu>
         <Main>
           <Header>
-            <UserContainer />
+            <UserContainer appLogout={appLogout}/>
           </Header>
           <DetailsBoard>
-            {this.renderDetails()}
+            <Switch>
+              <Route path="/jobs/dashboard" render={RenderDetails} />
+              <Route path="/jobs/recomended-jobs" render={sampleDiv}/>
+              <Route path="/jobs/interviews-attended" render={sampleDiv}/>
+              <Route path="/jobs/companies-shortlisted" render={sampleDiv}/>
+              <Route path="/jobs/companies-offered" render={sampleDiv}/>
+              <Route />
+            </Switch>
           </DetailsBoard>
         </Main>
       </Container>
@@ -136,7 +116,8 @@ const mapStateToProps = state => ({});
 
 const mapDispatchtoProps = {
   requestCall,
-  fetchDetails
+  fetchDetails,
+  appLogout
 };
 
 export default connect(

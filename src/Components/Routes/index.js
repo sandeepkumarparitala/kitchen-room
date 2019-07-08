@@ -6,27 +6,23 @@ import {
   userSelectIsLoggedIn
 } from "../../Selectors/app";
 import { availableRoutes } from "./availableRoutes";
+import Dashboard from "../Dashboard";
 export const Welcome = () => {
   return <div>Welcom</div>;
 };
 class ProtectedRoutes extends Component {
   renderRedirectToLanding = () => {
-    return <Redirect to="/dashboard" />;
+    return <Redirect to="/jobs/dashboard" />;
   };
   render() {
     return (
       <div style={{ height: "100vh", width: "100%" }}>
-        {/* <Link to="/dashboard">dashboard</Link>
-        <Link to="/recipies">recipies</Link>
-        <Link to="/Kitchen-designs">Kitchen-designs</Link> */}
         <Switch>
-          {availableRoutes.map(route => (
-            <Route
-              key={route.path}
-              path={route.path}
-              component={route.component}
-            />
-          ))}
+            <Route path={'/jobs/dashboard'} component={Dashboard} />
+            <Route path={'/jobs/recomended-jobs'} component={Dashboard} />
+            <Route path={'/jobs/interviews-attended'} component={Dashboard}/>
+            <Route path={'/jobs/companies-shortlisted'} component={Dashboard}/>
+            <Route path={'/jobs/comapnies-placed'} component={Dashboard}/>
           <Route render={this.renderRedirectToLanding} />
         </Switch>
       </div>

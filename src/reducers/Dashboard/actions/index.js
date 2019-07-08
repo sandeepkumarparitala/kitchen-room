@@ -10,7 +10,7 @@ import { dashboardInitializing,dashboardSetDetails } from './actionCreators'
 import { promised } from "q";
 
 export const requestCall = data => async (dispatch, getState) => {
-  const response = await axios.post(callBaseUrl(), { userid: 123 });
+  const response = await axios.get(callBaseUrl(), { userid: 123 });
 };
 
 export const fetchDetails = () => async (dispatch,getState) => {
@@ -25,14 +25,11 @@ export const fetchDetails = () => async (dispatch,getState) => {
     status:2
   }
     dispatch(dashboardInitializing(true))
-    Promise.all([
-      axios.get(attendedInterviewsUrl,header),
-      axios.get(recomendedJobsUrl,header),
-      axios.post(companiesShortListedUrl,companiesShortlistedQuery,header),
-      axios.post(companiesPlacedUrl,companiesPlaced,header)
-    ]).then((attendedInterviewsCount,recomendedJobsCount,comapniesShortListedCount,companiesPlacedCount) => {
+      const {data:attendedInterviewsCount} = await axios.get(attendedInterviewsUrl);
+      const {data:recomendedJobsCount} = await axios.get(recomendedJobsUrl);
+      const {data: comapniesShortListedCount} = await axios.post(companiesShortListedUrl,companiesShortlistedQuery);
+      const { data: companiesPlacedCount} = await axios.post(companiesPlacedUrl,companiesPlaced)
       dispatch(dashboardSetDetails({attendedInterviewsCount,recomendedJobsCount,comapniesShortListedCount,companiesPlacedCount}))
       console.log({attendedInterviewsCount,recomendedJobsCount,comapniesShortListedCount,companiesPlacedCount})
       dispatch(dashboardInitializing(false))
-    })
 }

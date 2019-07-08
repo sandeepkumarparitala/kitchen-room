@@ -32,6 +32,7 @@ class AuthGateway extends Component {
       component: Component,
       ...rest
     } = this.props;
+    console.log(rest)
     return (
       <Route
         {...rest}

@@ -24,3 +24,7 @@ export const appSetLoginSuccessful = status => ({
   type: types.APP_SET_LOGIN_SUCCESSFUL,
   status
 });
+
+export const userLogout = () => ({
+  type:types.USER_LOGOUT
+})
